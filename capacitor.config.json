@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "my-dropbox-application",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
