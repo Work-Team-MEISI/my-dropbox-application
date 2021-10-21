@@ -1,0 +1,6 @@
+<app-http-spinner *ngIf="this.spinnerState$ | async"></app-http-spinner>
+<div class="container" [ngClass]="(this.spinnerState$ | async) ? 'spinner-shown' : 'spinner-hidden'">
+    <app-navbar *ngIf="this.navbarVisibility === true"></app-navbar>
+    <app-content></app-content>
+    <app-footer *ngIf="this.footerVisibility === true"></app-footer>
+</div>

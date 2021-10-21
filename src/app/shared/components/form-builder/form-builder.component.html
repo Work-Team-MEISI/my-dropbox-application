@@ -1,0 +1,34 @@
+<form class="formGroup" [formGroup]="this.formGroup" (ngSubmit)="onSubmit()">
+    <div class="form-header">
+        <ion-img [src]="'./../../../../assets/icon/brand.png'"></ion-img>
+        <ion-label> My DripBox </ion-label>
+    </div>
+    <div class="form-sub-title" *ngIf="this.checkFormErrors() === true">
+        <ion-text> Wrong User Information </ion-text>
+    </div>
+    <div class="form-body">
+        <ion-list color="white">
+            <ion-item class="form-item" color="white" *ngFor="let formField of this.formFields; index as i;trackBy:trackEditList">
+                <ion-label position="floating"> {{ formField.name }} </ion-label>
+                <ion-input formControlName="{{ formField.controlName }}" type="{{ formField.type }}"></ion-input>
+            </ion-item>
+        </ion-list>
+    </div>
+    <div class="form-footer">
+        <ion-button [type]="'submit'" [disabled]="this.formGroup.valid === false">Submit</ion-button>
+    </div>
+    <div class="form-divider">
+        <ion-item-divider></ion-item-divider>
+    </div>
+    <div class="form-links">
+        <a *ngIf="this.checkRoutePresence('/authentication/sign-in')" [routerLink]="['/authentication/sign-in']" routerLinkActive="router-link-active">
+            <ion-text>Already registered? Click here to Sign In!</ion-text>
+        </a>
+        <a *ngIf="this.checkRoutePresence('/authentication/sign-up')" [routerLink]="['/authentication/sign-up']" routerLinkActive="router-link-active">
+            <ion-text>Don't have an account. Click here to Sign Up!</ion-text>
+        </a>
+        <a *ngIf="this.checkRoutePresence('/authentication/forgot-password')" [routerLink]="['/authentication/forgot-password']" routerLinkActive="router-link-active">
+            <ion-text>Forgot your Password? Click here to recover it!</ion-text>
+        </a>
+    </div>
+</form>

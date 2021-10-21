@@ -1,0 +1,5 @@
+<div class="container">
+    <ion-icon class="icon" *ngIf="this.success === true" name="checkmark-done-outline" color="success"></ion-icon>
+    <ion-icon class="icon" *ngIf="this.success === false" name="alert-circle-outline" color="danger"></ion-icon>
+    <ion-text class="message" [ngStyle]="this.success === true ? { 'color' : 'green' } : { 'color' : 'red' } "> {{ this.message }} </ion-text>
+</div>

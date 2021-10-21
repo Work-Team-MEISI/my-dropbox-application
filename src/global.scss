@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,51 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  /** Background Color */
+  --content-background-color: #fff;
+
+  /** Brand Props */
+  --brand-font-color: #344055;
+  --brand-font-size: 20px;
+  --brand-font-fontWeight: "";
+  --brand-font-fontFamily: "Poppins", sans-serif;
+
+  /** Label Props */
+  --label-font-color: #010400;
+  --label-font-size: 12px;
+  --label-font-fontWeight: "";
+  --label-font-fontFamily: "Poppins", sans-serif;
+
+  /** Text Props */
+  --text-font-color: #010400;
+  --text-font-size: 12px;
+  --text-font-fontWeight: 500;
+  --text-font-fontFamily: "Roboto";
+
+  /** Elements Props */
+  --button-background: #5892f7;
+  --borders-color: #010400;
+  --elements-font-size: 8px;
+  --elements-font-weight: 800;
+  --elements-errors-font-color: #f6334f;
+}
+
+ion-item {
+  --highlight-height: 0;
+}
+
+.modal-wrapper {
+  background: white !important;
+  width: 280px !important;
+  height: 80px !important;
+  border-radius: 8px !important;
+}

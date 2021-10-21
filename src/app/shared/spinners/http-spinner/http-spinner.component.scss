@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  height: inherit;
+  width: inherit;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.ion-spinner {
+  width: 100px;
+  height: 100px;
+}

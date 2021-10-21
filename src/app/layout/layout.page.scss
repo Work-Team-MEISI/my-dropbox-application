@@ -1,0 +1,19 @@
+:host {
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  height: inherit;
+  width: inherit;
+}
+
+.spinner-shown {
+  filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.spinner-hiden {
+  filter: blur(0);
+  backdrop-filter: blur(0);
+}

@@ -1,0 +1,123 @@
+:host {
+  display: flex;
+  width: inherit;
+  height: inherit;
+}
+
+.formGroup {
+  display: flex;
+  width: inherit;
+  height: inherit;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form-header > ion-label {
+  color: var(--brand-font-color);
+  font-size: var(--brand-font-size);
+  font-family: var(--brand-font-fontFamily);
+}
+
+.form-header > ion-img {
+  width: 160px;
+  height: 160px;
+}
+
+.form-sub-title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-sub-title > ion-text {
+  font-size: var(--text-font-size);
+  color: var(--elements-errors-font-color);
+  font-weight: var(--text-font-fontWeight);
+  font-family: var(--text-font-fontFamily);
+  letter-spacing: 2px;
+}
+
+.form-body {
+  width: 80vw;
+}
+
+.form-body > ion-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.form-item > ion-label {
+  color: var(--label-font-color) !important;
+  font-family: var(--label-font-fontFamily);
+  font-size: var(--label-font-size);
+}
+
+.form-item > ion-input {
+  border-bottom: solid 1px var(--text-font-color);
+  color: var(--text-font-color);
+  font-size: var(--text-font-size);
+}
+
+.form-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-footer > ion-button {
+  background-color: var(--button-background);
+  border: solid 2px var(--borders-color);
+  border-radius: 20px;
+  height: 48px;
+  width: 140px;
+  font-size: var(--elements-font-size);
+  font-weight: var(--elements-font-weight);
+  cursor: pointer;
+}
+
+.form-divider {
+  width: 80vw;
+}
+
+.form-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.form-links > a {
+  text-decoration: none;
+  font-family: var(--text-fontFamily);
+  font-size: var(--text-font-size);
+}

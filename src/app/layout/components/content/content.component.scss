@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  width: inherit;
+  height: inherit;
+}
+
+ion-content {
+  width: inherit;
+  height: inherit;
+  --ion-background-color: var(--content-background-color);
+}
