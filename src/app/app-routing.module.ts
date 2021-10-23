@@ -3,6 +3,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'documents',
+    loadChildren: () =>
+      import('./use-cases/features/documents/documents.module').then(
+        (m) => m.DocumentsPageModule
+      ),
+  },
+  {
     path: 'authentication',
     loadChildren: () =>
       import(
@@ -18,6 +25,13 @@ const routes: Routes = [
     path: '',
     redirectTo: 'authentication/sign-in',
     pathMatch: 'full',
+  },
+  {
+    path: 'documents',
+    loadChildren: () =>
+      import('./use-cases/features/documents/documents.module').then(
+        (m) => m.DocumentsPageModule
+      ),
   },
 ];
 

@@ -41,8 +41,6 @@ export class AuthenticationService {
           map((user: { user: User; idToken: string }) => {
             this._storageService.setToken(Storage.ID_TOKEN, user.idToken);
 
-            console.log(user);
-
             return user.user;
           }),
           catchError((error) => {
@@ -52,16 +50,14 @@ export class AuthenticationService {
         .subscribe(async (data: User) => {
           this._httpSpinnerService.hideSpinner();
 
-          console.log(data);
-
           const modal = await this._modalController.create({
             component: HttpDialogComponent,
             cssClass: '',
             componentProps: {
               success: data ? true : false,
               message: data
-                ? 'Success: Redirecting To Dashboard'
-                : 'Error: Wrong User Information',
+                ? 'Success: Redirecting To Dashboard!'
+                : 'Error: Wrong User Information!',
             },
           });
 
@@ -83,11 +79,24 @@ export class AuthenticationService {
         .create<User, SignUpDTO>(routeURL, signUp)
         .pipe(
           catchError((error) => {
-            return throwError(error);
+            return of(false);
           })
         )
-        .subscribe((data: User) => {
+        .subscribe(async (data: User) => {
           this._httpSpinnerService.hideSpinner();
+
+          const modal = await this._modalController.create({
+            component: HttpDialogComponent,
+            cssClass: '',
+            componentProps: {
+              success: data ? true : false,
+              message: data
+                ? 'Success: Redirecting To Sign In!'
+                : 'Error: User creation failure!',
+            },
+          });
+
+          await modal.present();
 
           observer.next(data);
           return observer.complete();
@@ -111,11 +120,24 @@ export class AuthenticationService {
         )
         .pipe(
           catchError((error) => {
-            return throwError(error);
+            return of(false);
           })
         )
-        .subscribe((data: User) => {
+        .subscribe(async (data: User) => {
           this._httpSpinnerService.hideSpinner();
+
+          const modal = await this._modalController.create({
+            component: HttpDialogComponent,
+            cssClass: '',
+            componentProps: {
+              success: data ? true : false,
+              message: data
+                ? 'Success: Redirecting To Sign In!'
+                : 'Error: User Update failure!',
+            },
+          });
+
+          modal.present();
 
           observer.next(data);
           return observer.complete();

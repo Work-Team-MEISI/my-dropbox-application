@@ -1,14 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { matchControls } from 'src/app/core/validators/match-controls.validator';
-import { UserAuthenticationRoutes } from 'src/app/use-cases/features/users/features/authentication/constants/user-authentication-routes.enum';
 import { FormField } from './types/form-builder';
 
 @Component({

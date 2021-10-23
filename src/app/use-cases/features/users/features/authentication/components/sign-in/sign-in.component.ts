@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormField } from 'src/app/shared/components/form-builder/types/form-builder';
+import { DocumentsRoutes } from 'src/app/use-cases/features/documents/constants/documents-routes.enum';
 import { SignInDTO } from '../../dtos/sign-in.dto';
 import { AuthenticationService } from '../../service/authentication.service';
 
@@ -9,7 +11,10 @@ import { AuthenticationService } from '../../service/authentication.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  constructor(private readonly _authenticationService: AuthenticationService) {}
+  constructor(
+    private readonly _authenticationService: AuthenticationService,
+    private readonly _router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -38,6 +43,8 @@ export class SignInComponent implements OnInit {
       password: formControls['password'].value,
     };
 
-    this._authenticationService.signIn(signInDTO).subscribe();
+    this._authenticationService.signIn(signInDTO).subscribe(() => {
+      this._router.navigateByUrl(DocumentsRoutes.DOCUMENTS);
+    });
   }
 }
