@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormField } from 'src/app/shared/components/form-builder/types/form-builder';
+import { UserAuthenticationRoutes } from '../../constants/user-authentication-routes.enum';
 import { ForgotPasswordDTO } from '../../dtos/forgot-password.dto';
 import { AuthenticationService } from '../../service/authentication.service';
 
@@ -9,7 +11,10 @@ import { AuthenticationService } from '../../service/authentication.service';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
-  constructor(private readonly _authenticationService: AuthenticationService) {}
+  constructor(
+    private readonly _authenticationService: AuthenticationService,
+    private readonly _router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -45,6 +50,10 @@ export class ForgotPasswordComponent implements OnInit {
       confirmPassword: formControls['confirmPassword'].value,
     };
 
-    this._authenticationService.signIn(forgotPasswordDTO).subscribe();
+    this._authenticationService
+      .forgotPassword(forgotPasswordDTO)
+      .subscribe(() => {
+        this._router.navigateByUrl(`${UserAuthenticationRoutes.SIGN_IN}`);
+      });
   }
 }

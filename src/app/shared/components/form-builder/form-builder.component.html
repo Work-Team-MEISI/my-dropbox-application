@@ -3,14 +3,15 @@
         <ion-img [src]="'./../../../../assets/icon/brand.png'"></ion-img>
         <ion-label> My DripBox </ion-label>
     </div>
-    <div class="form-sub-title" *ngIf="this.checkFormErrors() === true">
-        <ion-text> Wrong User Information </ion-text>
-    </div>
     <div class="form-body">
         <ion-list color="white">
             <ion-item class="form-item" color="white" *ngFor="let formField of this.formFields; index as i;trackBy:trackEditList">
                 <ion-label position="floating"> {{ formField.name }} </ion-label>
-                <ion-input formControlName="{{ formField.controlName }}" type="{{ formField.type }}"></ion-input>
+                <ion-input 
+                    [ngStyle]="this.formGroup.controls[formField.controlName].dirty && this.formGroup.controls[formField.controlName].errors !== null ? {'border-bottom':'solid 1px red'} : {'border-bottom':'solid 1px black'}" 
+                    formControlName="{{ formField.controlName }}" 
+                    type="{{ formField.type }}">
+                </ion-input>
             </ion-item>
         </ion-list>
     </div>

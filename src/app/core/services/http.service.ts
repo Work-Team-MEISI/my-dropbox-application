@@ -73,7 +73,7 @@ export class HttpService {
   /** Update */
 
   public updateBulk<T, K>(routeURL: string, data: K): Observable<T> {
-    return this._httpClient.put<T>(`${routeURL}`, data);
+    return this._httpClient.put<T>(`${environment.apiURL}/${routeURL}`, data);
   }
 
   public updateByParams<T, K>(
@@ -81,7 +81,9 @@ export class HttpService {
     params: HttpParams,
     data: K
   ): Observable<T> {
-    return this._httpClient.put<T>(`${routeURL}`, data, { params: params });
+    return this._httpClient.put<T>(`${environment.apiURL}/${routeURL}`, data, {
+      params: params,
+    });
   }
 
   public updateByResourceId<T, K>(
@@ -89,26 +91,33 @@ export class HttpService {
     resourceId: string,
     data: K
   ): Observable<T> {
-    return this._httpClient.put<T>(`${routeURL}/${resourceId}`, data);
+    return this._httpClient.put<T>(
+      `${environment.apiURL}/${routeURL}/${resourceId}`,
+      data
+    );
   }
 
   /** Deletes */
 
   public deleteBulk<T>(routeURL: string): Observable<T> {
-    return this._httpClient.delete<T>(`${routeURL}`);
+    return this._httpClient.delete<T>(`${environment.apiURL}/${routeURL}`);
   }
 
   public deleteByParams<T>(
     routeURL: string,
     params: HttpParams
   ): Observable<T> {
-    return this._httpClient.delete<T>(`${routeURL}`, { params: params });
+    return this._httpClient.delete<T>(`${environment.apiURL}/${routeURL}`, {
+      params: params,
+    });
   }
 
   public deleteByResourceId<T>(
     routeURL: string,
     resourceId: string
   ): Observable<T> {
-    return this._httpClient.delete<T>(`${routeURL}/${resourceId}`);
+    return this._httpClient.delete<T>(
+      `${environment.apiURL}/${routeURL}/${resourceId}`
+    );
   }
 }

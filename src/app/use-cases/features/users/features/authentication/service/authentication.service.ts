@@ -41,6 +41,8 @@ export class AuthenticationService {
           map((user: { user: User; idToken: string }) => {
             this._storageService.setToken(Storage.ID_TOKEN, user.idToken);
 
+            console.log(user);
+
             return user.user;
           }),
           catchError((error) => {
@@ -50,14 +52,16 @@ export class AuthenticationService {
         .subscribe(async (data: User) => {
           this._httpSpinnerService.hideSpinner();
 
+          console.log(data);
+
           const modal = await this._modalController.create({
             component: HttpDialogComponent,
             cssClass: '',
             componentProps: {
               success: data ? true : false,
               message: data
-                ? 'Redirecting To Dashboard'
-                : 'Wrong User Information',
+                ? 'Success: Redirecting To Dashboard'
+                : 'Error: Wrong User Information',
             },
           });
 
@@ -76,7 +80,7 @@ export class AuthenticationService {
       const routeURL = `${UserRoutes.USERS}/${UserAuthenticationRoutes.SIGN_UP}`;
 
       return this._httpService
-        .create(routeURL, signUp)
+        .create<User, SignUpDTO>(routeURL, signUp)
         .pipe(
           catchError((error) => {
             return throwError(error);
@@ -100,7 +104,11 @@ export class AuthenticationService {
       const httpParams = new HttpParams().set('email', forgotPassword.email);
 
       return this._httpService
-        .updateByParams(routeURL, httpParams, forgotPassword)
+        .updateByParams<User, ForgotPasswordDTO>(
+          routeURL,
+          httpParams,
+          forgotPassword
+        )
         .pipe(
           catchError((error) => {
             return throwError(error);

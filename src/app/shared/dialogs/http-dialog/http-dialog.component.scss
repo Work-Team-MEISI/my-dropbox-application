@@ -1,18 +1,19 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   gap: 20px;
 }
 
 .icon {
-  height: 20px;
-  width: 20px;
+  height: 64px;
+  width: 64px;
 }
 
 .message {
-  font-family: var(--text-font-fontFamily);
-  font-size: var(--text-font-size);
+  font-family: var(--label-font-fontFamily);
+  font-size: var(--label-font-size);
+  color: var(--label-font-color);
 }
