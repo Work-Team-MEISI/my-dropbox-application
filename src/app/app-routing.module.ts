@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { StateResolverService } from './core/resolvers/state/state-resolver.service';
+import { AuthenticationGuardService } from './use-cases/features/users/features/authentication/service/authentication-guard.service';
 
 const routes: Routes = [
   {
@@ -8,6 +10,8 @@ const routes: Routes = [
       import('./use-cases/features/documents/documents.module').then(
         (m) => m.DocumentsPageModule
       ),
+    canActivate: [AuthenticationGuardService],
+    // resolve: { data: StateResolverService },
   },
   {
     path: 'authentication',

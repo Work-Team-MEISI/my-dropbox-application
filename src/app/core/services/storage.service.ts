@@ -1,39 +1,41 @@
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Injectable, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  private _storage: Storage;
+  private _storage: Storage | null = null;
 
-  constructor(private readonly _storageService: Storage) {
-    this._initStorage();
-  }
-
-  private async _initStorage() {
-    const storage = await this._storageService.create();
-    this._storage = storage;
-  }
+  constructor(private storage: Storage) {}
 
   public async setToken<T>(tokenKey: string, tokenValue: T): Promise<void> {
+    this._storage = await this.storage.create();
+
     const strngfToken = JSON.stringify(tokenValue);
 
     return await this._storage.set(tokenKey, strngfToken);
   }
 
   public async fetchToken<T>(tokenKey: string): Promise<T> {
-    const tokenValue = await this._storage.get(tokenKey);
-    const parsedToken = JSON.parse(tokenValue);
+    this._storage = await this.storage.create();
 
-    return parsedToken;
+    const tokenJson = await this._storage.get(tokenKey);
+
+    const tokenValue = JSON.parse(tokenJson);
+
+    return tokenValue;
   }
 
   public async deleteToken(tokenKey: string): Promise<void> {
+    this._storage = await this.storage.create();
+
     return await this._storage.remove(tokenKey);
   }
 
   public async deleteBulk(): Promise<void> {
+    this._storage = await this.storage.create();
+
     return await this._storage.clear();
   }
 }

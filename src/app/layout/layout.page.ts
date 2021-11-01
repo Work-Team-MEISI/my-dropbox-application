@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { Storage } from '../core/constants/storage.enum';
+import { NetworkService } from '../core/services/network.service';
+import { StorageService } from '../core/services/storage.service';
 import { HttpSpinnerService } from '../shared/spinners/http-spinner/http-spinner.service';
+import { DocumentsRoutes } from '../use-cases/features/documents/constants/documents-routes.enum';
+import { UserAuthenticationRoutes } from '../use-cases/features/users/features/authentication/constants/user-authentication-routes.enum';
 
 @Component({
   selector: 'app-layout',
@@ -17,7 +23,9 @@ export class LayoutPage implements OnInit {
   constructor(
     private readonly _router: Router,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _httpSpinnerService: HttpSpinnerService
+    private readonly _httpSpinnerService: HttpSpinnerService,
+    private readonly _storageService: StorageService,
+    private readonly _jwtHelperService: JwtHelperService
   ) {
     this._spinnerState$ = this._httpSpinnerService.state$;
     this._navbarVisibility = false;
@@ -25,6 +33,7 @@ export class LayoutPage implements OnInit {
   }
 
   ngOnInit() {
+    this._initializeRouteRedirection();
     this._initializeRoutesState();
   }
 
@@ -38,6 +47,21 @@ export class LayoutPage implements OnInit {
 
   public get footerVisibility(): boolean {
     return this._footerVisibility;
+  }
+
+  public async _initializeRouteRedirection(): Promise<boolean> {
+    const token = await this._storageService.fetchToken<string>(
+      Storage.ID_TOKEN
+    );
+
+    if (
+      token === null &&
+      this._jwtHelperService.isTokenExpired(token) === true
+    ) {
+      return this._router.navigate([UserAuthenticationRoutes.SIGN_IN]);
+    }
+
+    return this._router.navigate([DocumentsRoutes.DOCUMENTS]);
   }
 
   private _initializeRoutesState(): void {

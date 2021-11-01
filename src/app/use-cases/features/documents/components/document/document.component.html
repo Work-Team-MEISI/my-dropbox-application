@@ -1,0 +1,19 @@
+<ion-card class="card">
+  <div class="card-row">
+    <ion-icon *ngIf="this.document.extension === 'pdf'" name="logo-wordpress" class="card-icon"></ion-icon>
+    <ion-icon *ngIf="this.document.extension === 'doc'" name="logo-wordpress" class="card-icon"></ion-icon>
+  </div>
+  <div class="card-row">
+    <ion-header class="card-header">
+      <ion-title class="card-title">
+        {{ this.document.name }}
+      </ion-title>
+    </ion-header>
+    <ion-card-content class="card-content">
+      <strong>Uploaded At:</strong> {{ this.document.createdAt }}
+    </ion-card-content>
+  </div>
+  <div class="card-row-icon">
+    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+  </div>
+</ion-card>

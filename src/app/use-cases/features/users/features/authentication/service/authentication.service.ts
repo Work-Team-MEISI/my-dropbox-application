@@ -5,6 +5,7 @@ import { Observable, Observer, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Storage } from 'src/app/core/constants/storage.enum';
 import { HttpService } from 'src/app/core/services/http.service';
+import { StateService } from 'src/app/core/services/state.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { HttpDialogComponent } from 'src/app/shared/dialogs/http-dialog/http-dialog.component';
 import { HttpSpinnerService } from 'src/app/shared/spinners/http-spinner/http-spinner.service';
@@ -23,7 +24,8 @@ export class AuthenticationService {
     private readonly _httpService: HttpService,
     private readonly _storageService: StorageService,
     private readonly _httpSpinnerService: HttpSpinnerService,
-    private readonly _modalController: ModalController
+    private readonly _modalController: ModalController,
+    private readonly _stateService: StateService
   ) {}
 
   public signIn(signIn: SignInDTO): Observable<User> {
@@ -40,6 +42,15 @@ export class AuthenticationService {
         .pipe(
           map((user: { user: User; idToken: string }) => {
             this._storageService.setToken(Storage.ID_TOKEN, user.idToken);
+
+            const userState = {
+              userId: user.user.userId,
+              username: user.user.password,
+              email: user.user.email,
+              password: user.user.password,
+            };
+
+            this._stateService.updateUserState(userState);
 
             return user.user;
           }),

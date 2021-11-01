@@ -6,6 +6,8 @@
 .container {
   height: inherit;
   width: inherit;
+  display: flex;
+  flex-direction: column;
 }
 
 .spinner-shown {

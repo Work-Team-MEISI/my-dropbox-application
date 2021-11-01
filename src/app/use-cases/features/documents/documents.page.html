@@ -1,0 +1,4 @@
+<div class="documents-container">
+    <app-document *ngFor="let document of this.documents$ | async" [document]="document"></app-document>
+    <app-add-document [userId]="this.userId"></app-add-document>
+</div>

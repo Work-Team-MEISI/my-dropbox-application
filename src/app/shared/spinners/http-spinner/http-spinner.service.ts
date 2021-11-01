@@ -14,7 +14,6 @@ export class HttpSpinnerService implements OnDestroy {
   }
 
   public get state$(): Observable<boolean> {
-    console.log(this._state$);
     return this._state$;
   }
 

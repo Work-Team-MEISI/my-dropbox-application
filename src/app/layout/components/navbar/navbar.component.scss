@@ -1,4 +1,11 @@
 .toolbar {
   --background: white;
-  border-bottom: solid 2px var(--borders-color);
+  border-bottom: solid 1px lightgray;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--brand-font-fontFamily);
+  font-size: var(--brand-font-size);
+  color: var(--brand-font-color);
 }

@@ -1,0 +1,16 @@
+<div class="container">
+  <input type="file" id="file" class="file" *ngIf="this.addDocumentDTO === undefined" (change)="this.changeDocument($event)">
+  <label for="file">
+    <ion-icon *ngIf="this.addDocumentDTO === undefined" name="cloud-upload-outline"></ion-icon>
+    <ion-icon *ngIf="this.addDocumentDTO !== undefined" name="document-outline"></ion-icon>
+  </label>
+  <div class="file-name">
+    <ion-input placeholder="Document Name" [(ngModel)]="this.docName"></ion-input>
+  </div>
+  <div class="container-button">
+    <ion-button color="primary" [disabled]="this.addDocumentDTO === undefined || this.docName === ''" (click)="this.addDocument()">Create Document</ion-button>
+  </div>
+</div>
+
+
+

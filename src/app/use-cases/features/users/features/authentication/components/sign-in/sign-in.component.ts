@@ -44,7 +44,7 @@ export class SignInComponent implements OnInit {
     };
 
     this._authenticationService.signIn(signInDTO).subscribe(() => {
-      this._router.navigateByUrl(DocumentsRoutes.DOCUMENTS);
+      this._router.navigate([DocumentsRoutes.DOCUMENTS]);
     });
   }
 }
