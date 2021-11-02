@@ -42,9 +42,7 @@ export class StateResolverService implements Resolve<State> {
             }
 
             const documents$ = this._stateService.refreshDocuments();
-            const user$ = this._stateService.state$.pipe(
-              map((data) => data.user)
-            );
+            const user$ = this._stateService.refreshUser();
 
             forkJoin([documents$, user$])
               .pipe(

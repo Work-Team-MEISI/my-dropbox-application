@@ -45,6 +45,10 @@ export class HttpService {
 
   /** Fetch Single */
 
+  public fetchByToken<T>(routeURL: string): Observable<T> {
+    return this._httpClient.get<T>(`${environment.apiURL}/${routeURL}`);
+  }
+
   public fetchByParams<T>(routeURL: string, params: HttpParams): Observable<T> {
     return this._httpClient.get<T>(`${environment.apiURL}/${routeURL}`, {
       params: params,

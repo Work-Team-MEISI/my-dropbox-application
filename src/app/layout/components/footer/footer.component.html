@@ -1,11 +1,12 @@
 <ion-footer >
     <ion-toolbar>
-        <ion-buttons>
-            <ion-button>
-                <ion-icon name="person-circle"></ion-icon>
+        <ion-buttons class="buttons">
+            <ion-button class="button" (click)="this.navigateToDocuments()">
+                <ion-icon name="document-sharp" class="icon" color="primary"></ion-icon>   
             </ion-button>
-            <ion-button>
-                <ion-icon name="person-circle"></ion-icon>
+            <hr class="divider">
+            <ion-button class="button" (click)="this.navigateToUserProfile()">
+                <ion-icon name="person-sharp" class="icon" color="primary"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

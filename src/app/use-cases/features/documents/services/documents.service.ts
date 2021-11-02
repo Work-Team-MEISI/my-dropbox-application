@@ -9,6 +9,7 @@ import { StateService } from 'src/app/core/services/state.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { HttpDialogComponent } from 'src/app/shared/dialogs/http-dialog/http-dialog.component';
 import { HttpSpinnerService } from 'src/app/shared/spinners/http-spinner/http-spinner.service';
+import { User } from '../../users/types/user';
 import { DocumentsRoutes } from '../constants/documents-routes.enum';
 import { AddDocumentDTO } from '../dtos/add-document.dto';
 import { Document } from '../types/document.type';
@@ -34,7 +35,7 @@ export class DocumentsService {
         .fetchBulkByParams(routeURL, httpParams)
         .pipe(
           catchError((error) => {
-            return of(error);
+            return of([]);
           })
         )
         .subscribe((data: Array<Document>) => {
@@ -115,15 +116,35 @@ export class DocumentsService {
     return new Observable((observer: Observer<boolean>) => {
       const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
       const httpParams = new HttpParams().set('documentId', documentId);
+      const stateService = this._injector.get(StateService);
+
+      this._httpSpinnerService.showSpinner();
 
       return this._httpService
         .deleteByParams(routeURL, httpParams)
         .pipe(
+          map(async (data) => {
+            const cachedDocs = await this._storageService.fetchToken<
+              Array<Document>
+            >(Storage.DOCUMENTS);
+
+            const newDocs = cachedDocs.filter(
+              (doc) => doc.documentId !== documentId
+            );
+
+            await this._storageService.setToken(Storage.DOCUMENTS, newDocs);
+
+            stateService.updateDocumentsState(newDocs);
+
+            return true;
+          }),
           catchError((error) => {
-            return of(error);
+            return of(false);
           })
         )
         .subscribe((data: boolean) => {
+          this._httpSpinnerService.hideSpinner();
+
           observer.next(data);
           return observer;
         });

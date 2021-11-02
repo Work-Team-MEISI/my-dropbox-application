@@ -1,0 +1,21 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button {
+  width: 50%;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.divider {
+  height: 28px;
+  width: 2px;
+  background: lightgray;
+}

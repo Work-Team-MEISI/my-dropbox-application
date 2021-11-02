@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DocumentsService } from '../../services/documents.service';
 import { Document } from '../../types/document.type';
 
 @Component({
@@ -9,7 +10,11 @@ import { Document } from '../../types/document.type';
 export class DocumentComponent implements OnInit {
   @Input() document: Document;
 
-  constructor() {}
+  constructor(private readonly _documentsService: DocumentsService) {}
 
   ngOnInit() {}
+
+  public removeDocument(): void {
+    this._documentsService.deleteDocument(this.document.documentId).subscribe();
+  }
 }

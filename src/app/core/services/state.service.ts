@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Observer, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { DocumentsService } from 'src/app/use-cases/features/documents/services/documents.service';
 import { Document } from 'src/app/use-cases/features/documents/types/document.type';
+import { ProfileService } from 'src/app/use-cases/features/users/features/profile/services/profile.service';
 import { User } from 'src/app/use-cases/features/users/types/user';
 import { State } from '../types/state.type';
 
@@ -19,7 +19,10 @@ export class StateService {
     user: User;
   }>;
 
-  constructor(private readonly _documentsService: DocumentsService) {
+  constructor(
+    private readonly _documentsService: DocumentsService,
+    private readonly _profileService: ProfileService
+  ) {
     this._stateSubject = new BehaviorSubject<State>({
       documents: [],
       user: {
@@ -58,19 +61,23 @@ export class StateService {
     return new Observable((observer: Observer<Array<Document>>) => {
       const userId = this._stateSubject.value.user.userId;
 
-      return this._documentsService
-        .fetchDocuments(userId)
-        .pipe(
-          catchError((error) => {
-            return of([]);
-          })
-        )
-        .subscribe((data) => {
-          this.updateDocumentsState(data);
+      return this._documentsService.fetchDocuments(userId).subscribe((data) => {
+        this.updateDocumentsState(data);
 
-          observer.next(data);
-          return observer.complete();
-        });
+        observer.next(data);
+        return observer.complete();
+      });
+    });
+  }
+
+  public refreshUser(): Observable<User> {
+    return new Observable((observer: Observer<User>) => {
+      return this._profileService.fetchUser().subscribe((data) => {
+        this.updateUserState(data);
+
+        observer.next(data);
+        return observer.complete();
+      });
     });
   }
 
