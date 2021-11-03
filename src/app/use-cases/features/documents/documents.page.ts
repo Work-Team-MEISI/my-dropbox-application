@@ -24,6 +24,8 @@ export class DocumentsPage implements OnInit {
       map((data) => {
         this._userId = data.user.userId;
 
+        console.log(data.documents);
+
         return data.documents;
       })
     );

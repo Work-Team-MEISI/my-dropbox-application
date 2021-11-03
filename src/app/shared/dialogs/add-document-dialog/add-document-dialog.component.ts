@@ -31,11 +31,13 @@ export class AddDocumentDialogComponent implements OnInit {
   }
 
   public changeDocument(event: Event): void {
-    const { name, type, size } = event.target['files'][0];
+    const { name, type } = event.target['files'][0];
+
+    const entension = type.split('/');
 
     this._addDocumentDTO = {
       name: name,
-      extension: type,
+      extension: entension[1],
       blob: event.target['files'][0],
       users: [this.userId],
     };

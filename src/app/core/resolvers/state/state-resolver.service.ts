@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { forkJoin, Observable, Observer } from 'rxjs';
+import { forkJoin, from, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/use-cases/features/documents/types/document.type';
 import { Storage } from '../../constants/storage.enum';
@@ -25,7 +25,7 @@ export class StateResolverService implements Resolve<State> {
         .fetchNetworkStatus()
         .pipe(
           map(async (data) => {
-            if (data.connected === false) {
+            if (data.connected === true) {
               const { DOCUMENTS } = Storage;
 
               const docsToken = await this._storageService.fetchToken<
@@ -38,6 +38,17 @@ export class StateResolverService implements Resolve<State> {
             const documentsExist = this._stateService.checkDocuments();
 
             if (documentsExist === true) {
+              const { DOCUMENTS } = Storage;
+
+              const docsToken = await this._storageService.fetchToken<
+                Array<Document>
+              >(DOCUMENTS);
+
+              observer.next({
+                documents: docsToken,
+                user: { userId: '', username: '', email: '', password: '' },
+              });
+
               return observer.complete();
             }
 

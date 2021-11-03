@@ -1,7 +1,7 @@
 <ion-card class="card">
   <div class="card-row">
-    <ion-icon *ngIf="this.document.extension === 'pdf'" name="logo-wordpress" class="card-icon"></ion-icon>
-    <ion-icon *ngIf="this.document.extension === 'doc'" name="logo-wordpress" class="card-icon"></ion-icon>
+    <ion-icon *ngIf="this.isFile(this.document.extension)" name="logo-wordpress" class="card-icon"></ion-icon>
+    <ion-icon *ngIf="this.isPhoto(this.document.extension)" name="image" class="card-icon"></ion-icon>
   </div>
   <div class="card-row">
     <ion-header class="card-header">

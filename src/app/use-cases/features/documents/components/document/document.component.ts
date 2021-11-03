@@ -17,4 +17,28 @@ export class DocumentComponent implements OnInit {
   public openRemoveDocumentDialog(): void {
     this._documentsService.deleteDocument(this.document.documentId).subscribe();
   }
+
+  public isFile(extension: string): boolean {
+    const files = ['pdf', 'doc'];
+
+    for (const file of files) {
+      if (extension === file) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public isPhoto(extension: string): boolean {
+    const photos = ['svg', 'png', 'jpg'];
+
+    for (const photo of photos) {
+      if (extension === photo) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
