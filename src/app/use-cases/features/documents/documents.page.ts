@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { StateService } from 'src/app/core/services/state.service';
 import { Document } from './types/document.type';

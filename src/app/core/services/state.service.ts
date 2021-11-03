@@ -4,7 +4,9 @@ import { DocumentsService } from 'src/app/use-cases/features/documents/services/
 import { Document } from 'src/app/use-cases/features/documents/types/document.type';
 import { ProfileService } from 'src/app/use-cases/features/users/features/profile/services/profile.service';
 import { User } from 'src/app/use-cases/features/users/types/user';
+import { Storage } from '../constants/storage.enum';
 import { State } from '../types/state.type';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,8 @@ export class StateService {
 
   constructor(
     private readonly _documentsService: DocumentsService,
-    private readonly _profileService: ProfileService
+    private readonly _profileService: ProfileService,
+    private readonly _storageService: StorageService
   ) {
     this._stateSubject = new BehaviorSubject<State>({
       documents: [],
@@ -59,9 +62,8 @@ export class StateService {
 
   public refreshDocuments(): Observable<Array<Document>> {
     return new Observable((observer: Observer<Array<Document>>) => {
-      const userId = this._stateSubject.value.user.userId;
-
-      return this._documentsService.fetchDocuments(userId).subscribe((data) => {
+      return this._documentsService.fetchDocuments().subscribe(async (data) => {
+        await this._storageService.setToken(Storage.DOCUMENTS, data);
         this.updateDocumentsState(data);
 
         observer.next(data);

@@ -11,7 +11,7 @@ const routes: Routes = [
         (m) => m.DocumentsPageModule
       ),
     canActivate: [AuthenticationGuardService],
-    // resolve: { data: StateResolverService },
+    resolve: { data: StateResolverService },
   },
   {
     path: 'authentication',

@@ -9,7 +9,6 @@ import { StateService } from 'src/app/core/services/state.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { HttpDialogComponent } from 'src/app/shared/dialogs/http-dialog/http-dialog.component';
 import { HttpSpinnerService } from 'src/app/shared/spinners/http-spinner/http-spinner.service';
-import { User } from '../../users/types/user';
 import { DocumentsRoutes } from '../constants/documents-routes.enum';
 import { AddDocumentDTO } from '../dtos/add-document.dto';
 import { Document } from '../types/document.type';
@@ -26,13 +25,12 @@ export class DocumentsService {
     private readonly _injector: Injector
   ) {}
 
-  public fetchDocuments(userId: string): Observable<Array<Document>> {
+  public fetchDocuments(): Observable<Array<Document>> {
     return new Observable((observer: Observer<Array<Document>>) => {
       const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
-      const httpParams = new HttpParams().set('userId', userId);
 
       return this._httpService
-        .fetchBulkByParams(routeURL, httpParams)
+        .fetchBulk(routeURL)
         .pipe(
           catchError((error) => {
             return of([]);
@@ -142,8 +140,21 @@ export class DocumentsService {
             return of(false);
           })
         )
-        .subscribe((data: boolean) => {
+        .subscribe(async (data: boolean) => {
           this._httpSpinnerService.hideSpinner();
+
+          const modal = await this._modalController.create({
+            component: HttpDialogComponent,
+            cssClass: '',
+            componentProps: {
+              success: data ? true : false,
+              message: data
+                ? 'Success: Document removed with success!'
+                : 'Error: Failure while removing the document!',
+            },
+          });
+
+          await modal.present();
 
           observer.next(data);
           return observer;

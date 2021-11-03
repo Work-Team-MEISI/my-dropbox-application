@@ -14,7 +14,7 @@ export class DocumentComponent implements OnInit {
 
   ngOnInit() {}
 
-  public removeDocument(): void {
+  public openRemoveDocumentDialog(): void {
     this._documentsService.deleteDocument(this.document.documentId).subscribe();
   }
 }
