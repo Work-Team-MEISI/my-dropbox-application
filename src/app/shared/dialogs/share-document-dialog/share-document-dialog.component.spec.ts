@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RemoveDocumentDialogComponent } from './remove-document-dialog.component';
+import { ShareDocumentDialogComponent } from './share-document-dialog.component';
 
-describe('RemoveDocumentDialogComponent', () => {
-  let component: RemoveDocumentDialogComponent;
-  let fixture: ComponentFixture<RemoveDocumentDialogComponent>;
+describe('ShareDocumentDialogComponent', () => {
+  let component: ShareDocumentDialogComponent;
+  let fixture: ComponentFixture<ShareDocumentDialogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemoveDocumentDialogComponent ],
+      declarations: [ ShareDocumentDialogComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RemoveDocumentDialogComponent);
+    fixture = TestBed.createComponent(ShareDocumentDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

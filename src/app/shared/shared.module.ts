@@ -7,7 +7,7 @@ import { HttpSpinnerComponent } from './spinners/http-spinner/http-spinner.compo
 import { RouterModule } from '@angular/router';
 import { HttpDialogComponent } from './dialogs/http-dialog/http-dialog.component';
 import { AddDocumentDialogComponent } from './dialogs/add-document-dialog/add-document-dialog.component';
-import { RemoveDocumentDialogComponent } from './dialogs/remove-document-dialog/remove-document-dialog.component';
+import { ShareDocumentDialogComponent } from './dialogs/share-document-dialog/share-document-dialog.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { RemoveDocumentDialogComponent } from './dialogs/remove-document-dialog/
     HttpSpinnerComponent,
     HttpDialogComponent,
     AddDocumentDialogComponent,
-    RemoveDocumentDialogComponent,
+    ShareDocumentDialogComponent,
   ],
   imports: [
     CommonModule,

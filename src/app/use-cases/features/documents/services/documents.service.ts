@@ -11,6 +11,7 @@ import { HttpDialogComponent } from 'src/app/shared/dialogs/http-dialog/http-dia
 import { HttpSpinnerService } from 'src/app/shared/spinners/http-spinner/http-spinner.service';
 import { DocumentsRoutes } from '../constants/documents-routes.enum';
 import { AddDocumentDTO } from '../dtos/add-document.dto';
+import { UpdateDocumentDTO } from '../dtos/update-document.dto';
 import { Document } from '../types/document.type';
 
 @Injectable({
@@ -46,16 +47,31 @@ export class DocumentsService {
   public fetchDocument(documentId: string): Observable<Document> {
     return new Observable((observer: Observer<Document>) => {
       const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
-      const httpParams = new HttpParams().set('documentId', documentId);
+      this._httpSpinnerService.showSpinner();
 
       return this._httpService
-        .fetchByParams(routeURL, httpParams)
+        .fetchByResourceId(routeURL, documentId)
         .pipe(
           catchError((error) => {
-            return of(error);
+            return of(false);
           })
         )
-        .subscribe((data: Document) => {
+        .subscribe(async (data: Document) => {
+          this._httpSpinnerService.hideSpinner();
+
+          const modal = await this._modalController.create({
+            component: HttpDialogComponent,
+            cssClass: '',
+            componentProps: {
+              success: data ? true : false,
+              message: data
+                ? 'Success: Document fetched with success!'
+                : 'Error: Failure while fetching the document!',
+            },
+          });
+
+          await modal.present();
+
           observer.next(data);
           return observer;
         });
@@ -99,6 +115,62 @@ export class DocumentsService {
               message: data
                 ? 'Success: Document created with success!'
                 : 'Error: Failure while creating the document!',
+            },
+          });
+
+          await modal.present();
+
+          observer.next(await data);
+          return observer;
+        });
+    });
+  }
+
+  public updateDocument(
+    updateDocumentDTO: UpdateDocumentDTO
+  ): Observable<Document> {
+    return new Observable((observer: Observer<Document>) => {
+      const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
+
+      this._httpSpinnerService.showSpinner();
+      const stateService = this._injector.get(StateService);
+
+      return this._httpService
+        .updateByResourceId(routeURL, updateDocumentDTO.documentId, {
+          email: updateDocumentDTO.email,
+        })
+        .pipe(
+          map(async (data: Document) => {
+            const cachedDocs = await this._storageService.fetchToken<
+              Array<Document>
+            >(Storage.DOCUMENTS);
+
+            const index = cachedDocs.findIndex(
+              (cachedDoc) => cachedDoc.documentId === data.documentId
+            );
+
+            cachedDocs[index] = data;
+
+            await this._storageService.setToken(Storage.DOCUMENTS, cachedDocs);
+            stateService.updateDocumentsState(cachedDocs);
+
+            return data;
+          }),
+          catchError((error) => {
+            return of(false);
+          })
+        )
+        .subscribe(async (data: Promise<Document>) => {
+          this._httpSpinnerService.hideSpinner();
+
+          const modal = await this._modalController.create({
+            component: HttpDialogComponent,
+            cssClass: '',
+            componentProps: {
+              success: data ? true : false,
+              message: data
+                ? 'Success: Document updated with success!'
+                : 'Error: Failure while updating the document!',
             },
           });
 

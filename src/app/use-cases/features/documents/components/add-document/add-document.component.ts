@@ -33,6 +33,10 @@ export class AddDocumentComponent implements OnInit {
 
     const data = onDismissProps.data;
 
+    if (data === undefined) {
+      return;
+    }
+
     this._documentsService.createDocument(data).subscribe();
   }
 }

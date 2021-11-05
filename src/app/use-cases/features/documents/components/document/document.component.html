@@ -3,7 +3,7 @@
     <ion-icon *ngIf="this.isFile(this.document.extension)" name="logo-wordpress" class="card-icon"></ion-icon>
     <ion-icon *ngIf="this.isPhoto(this.document.extension)" name="image" class="card-icon"></ion-icon>
   </div>
-  <div class="card-row">
+  <div class="card-row" (click)="this.fetchDocument()">
     <ion-header class="card-header">
       <ion-title class="card-title">
         {{ this.document.name }}
@@ -14,6 +14,7 @@
     </ion-card-content>
   </div>
   <div class="card-row-icon">
-    <ion-icon name="trash-outline" (click)="this.openRemoveDocumentDialog()"></ion-icon>
+    <ion-icon name="share-social-outline" (click)="this.openShareDocumentDialog(this.document.documentId)"></ion-icon>
+    <ion-icon name="trash-outline" (click)="this.removeDocument()"></ion-icon>
   </div>
 </ion-card>

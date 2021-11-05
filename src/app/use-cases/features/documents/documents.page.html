@@ -1,4 +1,8 @@
-<div class="documents-container">
-    <app-document *ngFor="let document of this.documents$ | async" [document]="document"></app-document>
+<div class="documents-container" *ngIf="this.documents$ | async as documents">
+    <div class="documents-empty" *ngIf="documents.length === 0">
+        <ion-icon name="home-sharp" ></ion-icon>
+        <ion-label>Whoa! Such Empty!</ion-label>
+    </div>
+    <app-document *ngFor="let document of documents" [document]="document"></app-document>
     <app-add-document [userId]="this.userId"></app-add-document>
 </div>

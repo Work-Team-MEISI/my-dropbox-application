@@ -17,6 +17,11 @@
 
 .card-row-icon {
   padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .card-content {

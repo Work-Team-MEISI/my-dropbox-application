@@ -1,5 +1,27 @@
 .documents-container {
-  height: inherit;
+  min-height: 100%;
   width: inherit;
   overflow-y: scroll;
+}
+
+.documents-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 16px;
+}
+
+.documents-empty > ion-icon {
+  width: 56px;
+  height: 56px;
+  color: black;
+}
+
+.documents-empty > ion-label {
+  color: var(--text-font-color);
+  font-family: var(--text-font-fontFamily);
+  font-size: var(--text-font-size);
+  letter-spacing: 2px;
 }
