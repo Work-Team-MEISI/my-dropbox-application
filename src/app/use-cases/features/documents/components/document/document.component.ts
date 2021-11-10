@@ -11,24 +11,23 @@ import { Document } from '../../types/document.type';
 })
 export class DocumentComponent implements OnInit {
   @Input() document: Document;
+  @Input() userId: string;
 
   constructor(
     private readonly _documentsService: DocumentsService,
     private readonly _modalController: ModalController
   ) {}
 
-  ngOnInit() {
-    console.log(this.document);
-  }
-
-  public fetchDocument(): void {
-    this._documentsService
-      .fetchDocument(this.document.documentId)
-      .subscribe((data) => console.log(data));
-  }
+  ngOnInit() {}
 
   public removeDocument(): void {
     this._documentsService.deleteDocument(this.document.documentId).subscribe();
+  }
+
+  public removeDocumentUser(): void {
+    const data = { documentId: this.document.documentId, userId: this.userId };
+
+    this._documentsService.updateDocument(data).subscribe();
   }
 
   public isFile(extension: string): boolean {
@@ -56,11 +55,17 @@ export class DocumentComponent implements OnInit {
   }
 
   public async openShareDocumentDialog(documentId: string): Promise<void> {
+    const users = this.document.users.filter(
+      (user) => user.userId !== this.userId
+    );
+
+    console.log(users);
     const modal = await this._modalController.create({
       component: ShareDocumentDialogComponent,
       cssClass: '',
       componentProps: {
         documentId: documentId,
+        users: users,
       },
     });
 

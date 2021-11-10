@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { UpdateDocumentDTO } from 'src/app/use-cases/features/documents/dtos/update-document.dto';
+import { User } from 'src/app/use-cases/features/users/types/user';
 
 @Component({
   selector: 'app-share-document-dialog',
@@ -9,6 +9,7 @@ import { UpdateDocumentDTO } from 'src/app/use-cases/features/documents/dtos/upd
 })
 export class ShareDocumentDialogComponent implements OnInit {
   @Input() documentId: string;
+  @Input() users: Array<User>;
 
   private _email: string = '';
 
@@ -32,4 +33,6 @@ export class ShareDocumentDialogComponent implements OnInit {
 
     this._modalController.dismiss(updateDocumentDTO);
   }
+
+  public removeUserAccess(): void {}
 }

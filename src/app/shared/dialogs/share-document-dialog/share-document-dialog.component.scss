@@ -5,50 +5,42 @@
   justify-content: center;
   height: 100vh;
   gap: 12px;
+  padding: 16px 24px;
 }
 
-.file {
-  opacity: 0;
-  width: 0.1px;
-  height: 0.1px;
-  position: absolute;
+.users {
+  width: 100%;
+  padding: 0 16px;
 }
 
-.container > label {
-  display: block;
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 25px;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-  background: #5892f7;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease-out;
+.users-list {
+  background: #fff;
 }
 
-input:hover + label,
-input:focus + label {
-  transform: scale(1.02);
-}
+.users-list-item {
+  --background: #fff;
+  color: var(--text-font-color);
+  font-size: var(--text-font-size);
+  font-family: var(--text-font-fontFamily);
 
-.file-name {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.file-name > ion-input {
-  padding: 12px 24px;
-  border-bottom: solid 1px var(--borders-color);
+  .item-native {
+    padding-inline-start: unset !important;
+    padding-inline-end: unset !important;
+  }
 }
 
 .container-button > ion-button {
   font-size: 12px;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label > ion-icon {
+  width: 20px;
+  height: 20px;
 }

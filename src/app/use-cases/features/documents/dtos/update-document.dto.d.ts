@@ -1,4 +1,5 @@
 export class UpdateDocumentDTO {
   documentId: string;
-  email: string;
+  email?: string;
+  userId?: string;
 }

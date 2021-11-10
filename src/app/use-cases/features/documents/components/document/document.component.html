@@ -1,20 +1,20 @@
 <ion-card class="card">
-  <div class="card-row">
-    <ion-icon *ngIf="this.isFile(this.document.extension)" name="logo-wordpress" class="card-icon"></ion-icon>
-    <ion-icon *ngIf="this.isPhoto(this.document.extension)" name="image" class="card-icon"></ion-icon>
+  <div class="card-row-extension">
+    <img src="./../../../../../../assets/icon/{{this.document.extension}}.svg" class="card-icon" alt="">
   </div>
-  <div class="card-row" (click)="this.fetchDocument()">
+  <div class="card-row">
     <ion-header class="card-header">
       <ion-title class="card-title">
         {{ this.document.name }}
       </ion-title>
     </ion-header>
     <ion-card-content class="card-content">
-      <strong>Uploaded At:</strong> {{ this.document.createdAt }}
+      {{ this.document.createdAt }}
     </ion-card-content>
   </div>
   <div class="card-row-icon">
-    <ion-icon name="share-social-outline" (click)="this.openShareDocumentDialog(this.document.documentId)"></ion-icon>
-    <ion-icon name="trash-outline" (click)="this.removeDocument()"></ion-icon>
+    <ion-icon *ngIf="this.document.creator === this.userId" name="share-social-outline" (click)="this.openShareDocumentDialog(this.document.documentId)"></ion-icon>
+    <ion-icon *ngIf="this.document.creator === this.userId" name="trash-outline" (click)="this.removeDocument()"></ion-icon>
+    <ion-icon *ngIf="this.document.creator !== this.userId" name="trash-outline" (click)="this.removeDocumentUser()"></ion-icon>
   </div>
 </ion-card>

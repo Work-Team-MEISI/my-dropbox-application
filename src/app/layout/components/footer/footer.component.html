@@ -1,12 +1,18 @@
-<ion-footer >
-    <ion-toolbar>
+<ion-footer>
+    <ion-toolbar class="toolbar">
         <ion-buttons class="buttons">
             <ion-button class="button" (click)="this.navigateToDocuments()">
-                <ion-icon name="document-sharp" class="icon" color="primary"></ion-icon>   
+                <div class="button-inner">
+                    <ion-icon name="document-sharp" class="icon" color="primary"></ion-icon>   
+                    <ion-label> My Documents </ion-label>
+                </div>
             </ion-button>
             <hr class="divider">
             <ion-button class="button" (click)="this.navigateToUserProfile()">
-                <ion-icon name="person-sharp" class="icon" color="primary"></ion-icon>
+                <div class="button-inner">
+                    <ion-icon name="person-sharp" class="icon" color="primary"></ion-icon>
+                    <ion-label> My Profile </ion-label>
+                </div>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

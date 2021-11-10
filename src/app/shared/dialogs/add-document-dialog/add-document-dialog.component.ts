@@ -39,6 +39,7 @@ export class AddDocumentDialogComponent implements OnInit {
       name: name,
       extension: entension[1],
       blob: event.target['files'][0],
+      creator: String(this.userId),
       users: [this.userId],
     };
   }

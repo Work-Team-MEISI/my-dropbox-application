@@ -66,6 +66,8 @@ export class StateService {
         await this._storageService.setToken(Storage.DOCUMENTS, data);
         this.updateDocumentsState(data);
 
+        console.log(data);
+
         observer.next(data);
         return observer.complete();
       });
@@ -74,8 +76,9 @@ export class StateService {
 
   public refreshUser(): Observable<User> {
     return new Observable((observer: Observer<User>) => {
-      return this._profileService.fetchUser().subscribe((data) => {
+      return this._profileService.fetchUser().subscribe(async (data) => {
         this.updateUserState(data);
+        await this._storageService.setToken(Storage.USER, data);
 
         observer.next(data);
         return observer.complete();

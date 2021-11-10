@@ -5,8 +5,37 @@
   justify-content: space-around;
 }
 
+.toolbar {
+  --background: white;
+  --border-color: #5892f7;
+  text-align: center;
+  --border-width: 0.55px 0 0;
+}
+
 .button {
+  height: 80px;
   width: 50%;
+}
+
+.button-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-inner > ion-input {
+  width: 16px;
+  height: 16px;
+}
+
+.button-inner > ion-label {
+  font-size: var(--text-font-size);
+  font-family: var(--label-font-fontFamily);
+  color: var(--text-font-color);
+  text-transform: initial;
+  padding-bottom: 8px;
 }
 
 .icon {
@@ -15,7 +44,8 @@
 }
 
 .divider {
-  height: 28px;
+  height: 40px;
   width: 2px;
   background: lightgray;
+  margin-bottom: 8px;
 }

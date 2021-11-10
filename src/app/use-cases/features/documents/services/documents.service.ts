@@ -31,7 +31,7 @@ export class DocumentsService {
       const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
 
       return this._httpService
-        .fetchBulk(routeURL)
+        .fetchBulkByToken(routeURL)
         .pipe(
           catchError((error) => {
             return of([]);

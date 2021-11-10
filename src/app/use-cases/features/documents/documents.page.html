@@ -1,8 +1,11 @@
 <div class="documents-container" *ngIf="this.documents$ | async as documents">
+    <ion-refresher slot="fixed" class="refresher" (ionRefresh)="fetchDocuments($event)" >
+        <ion-refresher-content class="refresher-content"></ion-refresher-content>
+    </ion-refresher>
     <div class="documents-empty" *ngIf="documents.length === 0">
         <ion-icon name="home-sharp" ></ion-icon>
         <ion-label>Whoa! Such Empty!</ion-label>
     </div>
-    <app-document *ngFor="let document of documents" [document]="document"></app-document>
+    <app-document *ngFor="let document of documents" [document]="document" [userId]="this.userId"></app-document>
     <app-add-document [userId]="this.userId"></app-add-document>
 </div>

@@ -15,6 +15,10 @@ export class HttpService {
     return this._httpClient.get<Array<T>>(`${environment.apiURL}/${routeURL}`);
   }
 
+  public fetchBulkByToken<T>(routeURL: string): Observable<Array<T>> {
+    return this._httpClient.get<Array<T>>(`${environment.apiURL}/${routeURL}`);
+  }
+
   public fetchBulkByParams<T>(
     routeURL: string,
     params: HttpParams

@@ -25,7 +25,7 @@ export class StateResolverService implements Resolve<State> {
         .fetchNetworkStatus()
         .pipe(
           map(async (data) => {
-            if (data.connected === true) {
+            if (data.connected === false) {
               const { DOCUMENTS } = Storage;
 
               const docsToken = await this._storageService.fetchToken<

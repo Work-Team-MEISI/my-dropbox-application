@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NetworkService } from 'src/app/core/services/network.service';
 import { StateService } from 'src/app/core/services/state.service';
+import { HttpDialogComponent } from 'src/app/shared/dialogs/http-dialog/http-dialog.component';
+import { HttpSpinnerService } from 'src/app/shared/spinners/http-spinner/http-spinner.service';
 import { Document } from './types/document.type';
 
 @Component({
@@ -13,7 +17,12 @@ export class DocumentsPage implements OnInit {
   private _documents$: Observable<Array<Document>>;
   private _userId: string;
 
-  constructor(private readonly _stateService: StateService) {
+  constructor(
+    private readonly _stateService: StateService,
+    private readonly _networkService: NetworkService,
+    private readonly _httpSpinnerService: HttpSpinnerService,
+    private readonly _modalController: ModalController
+  ) {
     this._initializeDocuments();
   }
 
@@ -23,8 +32,6 @@ export class DocumentsPage implements OnInit {
     this._documents$ = this._stateService.state$.pipe(
       map((data) => {
         this._userId = data.user.userId;
-
-        console.log(data.documents);
 
         return data.documents;
       })
@@ -37,5 +44,30 @@ export class DocumentsPage implements OnInit {
 
   public get documents$(): Observable<Array<Document>> {
     return this._documents$;
+  }
+
+  public fetchDocuments(event): void {
+    this._networkService.fetchNetworkStatus().subscribe(async (data) => {
+      if (data.connected === false) {
+        this._httpSpinnerService.hideSpinner();
+
+        const modal = await this._modalController.create({
+          component: HttpDialogComponent,
+          cssClass: '',
+          componentProps: {
+            success: false,
+            message: 'Error: Not internet connection established!',
+          },
+        });
+
+        event.target.complete();
+
+        return await modal.present();
+      }
+
+      this._stateService.refreshDocuments().subscribe(() => {
+        return event.target.complete();
+      });
+    });
   }
 }
