@@ -3,7 +3,7 @@
         <ion-refresher-content class="refresher-content"></ion-refresher-content>
     </ion-refresher>
     <div class="documents-empty" *ngIf="documents.length === 0">
-        <ion-icon name="home-sharp" ></ion-icon>
+        <ion-img src="./../../../../assets/tumbleweed.svg" class="card-icon" alt=""></ion-img>
         <ion-label>Whoa! Such Empty!</ion-label>
     </div>
     <app-document *ngFor="let document of documents" [document]="document" [userId]="this.userId"></app-document>

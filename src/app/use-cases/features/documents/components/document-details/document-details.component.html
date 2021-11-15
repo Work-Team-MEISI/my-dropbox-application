@@ -1,0 +1,44 @@
+
+<div class="container" *ngIf="this.state$ | async as state">
+    <ion-segment>
+        <ion-segment-button 
+        (click)="this.selectedTab = 'file'" 
+        class="file" 
+        value="file">
+        <ion-label [ngClass]="this.selectedTab === 'file' ? 'active' : 'not-active'">File</ion-label>
+        </ion-segment-button>
+        <ion-segment-button 
+        (click)="this.selectedTab = 'share'" 
+        class="share" 
+        value="share">
+            <ion-label [ngClass]="this.selectedTab === 'share' ? 'active' : 'not-active'">Share</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+    <div class="file-container" *ngIf="this.selectedTab === 'file'">
+        <ion-row class="file-container-header">
+            <ion-label class="doc-name">{{ state.document.name }}</ion-label>
+            <ion-row class="doc-icons">
+                <ion-icon name="cloud-upload-outline"></ion-icon>
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-row>
+        </ion-row>
+        <hr>
+        <ion-row class="fields-container">
+            <div class="fields-container-field">
+                <ion-label>Type:</ion-label>
+                <ion-text>{{state.document.extension}}</ion-text>
+            </div>
+            <div class="fields-container-field">
+                <ion-label>Uploaded By:</ion-label>
+                <ion-text>User1</ion-text>
+            </div>
+            <div class="fields-container-field">
+                <ion-label>Created At:</ion-label>
+                <ion-text>{{state.document.createdAt | date}}</ion-text>
+            </div>
+        </ion-row>
+    </div>
+    <div class="share-container" *ngIf="this.selectedTab === 'share'">
+        
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { ShareDocumentDialogComponent } from 'src/app/shared/dialogs/share-document-dialog/share-document-dialog.component';
+import { DocumentsRoutes } from '../../constants/documents-routes.enum';
 import { DocumentsService } from '../../services/documents.service';
 import { Document } from '../../types/document.type';
 
@@ -15,7 +16,7 @@ export class DocumentComponent implements OnInit {
 
   constructor(
     private readonly _documentsService: DocumentsService,
-    private readonly _modalController: ModalController
+    private readonly _router: Router
   ) {}
 
   ngOnInit() {}
@@ -54,31 +55,10 @@ export class DocumentComponent implements OnInit {
     return false;
   }
 
-  public async openShareDocumentDialog(documentId: string): Promise<void> {
-    const users = this.document.users.filter(
-      (user) => user.userId !== this.userId
+  public async openDocument(): Promise<void> {
+    this._router.navigate(
+      [`${DocumentsRoutes.DOCUMENTS}`, this.document.documentId],
+      { state: { document: this.document, userId: this.userId } }
     );
-
-    console.log(users);
-    const modal = await this._modalController.create({
-      component: ShareDocumentDialogComponent,
-      cssClass: '',
-      componentProps: {
-        documentId: documentId,
-        users: users,
-      },
-    });
-
-    await modal.present();
-
-    const onDismissProps = await modal.onDidDismiss();
-
-    const data = onDismissProps.data;
-
-    if (data === undefined) {
-      return;
-    }
-
-    this._documentsService.updateDocument(data).subscribe();
   }
 }

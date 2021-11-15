@@ -7,10 +7,16 @@ import { DocumentsPage } from './documents.page';
 import { DocumentComponent } from './components/document/document.component';
 import { AddDocumentComponent } from './components/add-document/add-document.component';
 import { DocumentsService } from './services/documents.service';
+import { DocumentDetailsComponent } from './components/document-details/document-details.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, DocumentsPageRoutingModule],
-  declarations: [DocumentsPage, DocumentComponent, AddDocumentComponent],
+  declarations: [
+    DocumentsPage,
+    DocumentComponent,
+    AddDocumentComponent,
+    DocumentDetailsComponent,
+  ],
   providers: [DocumentsService],
 })
 export class DocumentsPageModule {}
