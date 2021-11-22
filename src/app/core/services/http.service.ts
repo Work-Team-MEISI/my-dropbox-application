@@ -39,11 +39,11 @@ export class HttpService {
 
   public fetchBulkByResourceBody<T, K>(
     routeURL: string,
-    resource: K
+    data: K
   ): Observable<Array<T>> {
     return this._httpClient.get<Array<T>>(
       `${environment.apiURL}/${routeURL}`,
-      resource
+      data
     );
   }
 

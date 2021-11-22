@@ -137,7 +137,7 @@ export class DocumentsService {
 
       return this._httpService
         .updateByResourceId(routeURL, updateDocumentDTO.documentId, {
-          email: updateDocumentDTO.email,
+          users: updateDocumentDTO.users,
         })
         .pipe(
           map(async (data: Document) => {

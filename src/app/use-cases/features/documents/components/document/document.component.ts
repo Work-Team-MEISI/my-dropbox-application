@@ -21,16 +21,6 @@ export class DocumentComponent implements OnInit {
 
   ngOnInit() {}
 
-  public removeDocument(): void {
-    this._documentsService.deleteDocument(this.document.documentId).subscribe();
-  }
-
-  public removeDocumentUser(): void {
-    const data = { documentId: this.document.documentId, userId: this.userId };
-
-    this._documentsService.updateDocument(data).subscribe();
-  }
-
   public isFile(extension: string): boolean {
     const files = ['pdf', 'doc'];
 

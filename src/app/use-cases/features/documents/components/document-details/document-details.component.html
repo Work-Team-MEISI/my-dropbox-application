@@ -18,8 +18,8 @@
         <ion-row class="file-container-header">
             <ion-label class="doc-name">{{ state.document.name }}</ion-label>
             <ion-row class="doc-icons">
-                <ion-icon name="cloud-upload-outline"></ion-icon>
-                <ion-icon name="trash-outline"></ion-icon>
+                <ion-icon name="cloud-upload-outline" class="download-file" (click)="this.downloadFile(state.document.documentId)"></ion-icon>
+                <ion-icon name="trash-outline" class="trash-file" (click)="this.deleteFile(state.document.documentId)"></ion-icon>
             </ion-row>
         </ion-row>
         <hr>
@@ -30,7 +30,7 @@
             </div>
             <div class="fields-container-field">
                 <ion-label>Uploaded By:</ion-label>
-                <ion-text>User1</ion-text>
+                <ion-text>{{state.user}}</ion-text>
             </div>
             <div class="fields-container-field">
                 <ion-label>Created At:</ion-label>
@@ -39,6 +39,17 @@
         </ion-row>
     </div>
     <div class="share-container" *ngIf="this.selectedTab === 'share'">
-        
+        <div class="row">
+            <ion-searchbar type="email" (focusout)="this.addUserToFile($event, state.document.users, state.document.documentId)"></ion-searchbar>
+        </div>
+        <div class="row">
+            <div class="row-label">Shared with:</div>
+            <div class="row-body">
+                <div class="row-item" *ngFor="let sharedUser of this.sharedUsers">
+                    <label class="row-item-label">{{sharedUser.username}}</label>
+                    <label class="row-item-remove-label" (click)="removeSharedUser(state.document.users, sharedUser.userId, state.document.documentId)">Remove</label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -7,4 +7,31 @@
 ion-content {
   width: inherit;
   --ion-background-color: var(--content-background-color);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.error-failure {
+  width: 100%;
+  height: 84px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ff0404;
+  position: absolute;
+  bottom: 0;
+  padding: 0 20px;
+}
+
+.error-failure > ion-text {
+  font-family: var(poppins-font);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+
+  /* identical to box height */
+  letter-spacing: 0.04em;
 }

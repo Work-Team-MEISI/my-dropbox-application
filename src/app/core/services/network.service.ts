@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConnectionStatus, Network } from '@capacitor/network';
-import { from, Observable, Observer } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

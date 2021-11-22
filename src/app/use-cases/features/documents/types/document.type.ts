@@ -6,6 +6,6 @@ export type Document = {
   createdAt: string;
   extension: string;
   creator: string;
-  users: Array<User>;
+  users: Array<string>;
   blob?: unknown;
 };

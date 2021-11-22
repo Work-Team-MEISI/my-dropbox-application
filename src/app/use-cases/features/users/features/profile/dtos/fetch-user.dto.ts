@@ -1,3 +1,3 @@
-export class FetchUserDTO {
-  email: string;
+export class FetchUserByIdDTO {
+  userId: string;
 }

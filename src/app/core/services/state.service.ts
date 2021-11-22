@@ -107,4 +107,21 @@ export class StateService {
   }
 
   /* State Props Updaters Actions */
+
+  public updateDocumentSharedUsers(
+    sharedUsers: Array<string>,
+    docId: string
+  ): void {
+    const documents = this._stateSubject.value.documents.filter((document) => {
+      if (document.documentId === docId) {
+        document.users = sharedUsers;
+      }
+
+      return document;
+    });
+
+    console.log(documents);
+
+    this.updateDocumentsState(documents);
+  }
 }
