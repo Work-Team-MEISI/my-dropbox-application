@@ -8,6 +8,7 @@ import { DocumentComponent } from './components/document/document.component';
 import { AddDocumentComponent } from './components/add-document/add-document.component';
 import { DocumentsService } from './services/documents.service';
 import { DocumentDetailsComponent } from './components/document-details/document-details.component';
+import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, DocumentsPageRoutingModule],
@@ -17,6 +18,6 @@ import { DocumentDetailsComponent } from './components/document-details/document
     AddDocumentComponent,
     DocumentDetailsComponent,
   ],
-  providers: [DocumentsService],
+  providers: [DocumentsService, PreviewAnyFile],
 })
 export class DocumentsPageModule {}

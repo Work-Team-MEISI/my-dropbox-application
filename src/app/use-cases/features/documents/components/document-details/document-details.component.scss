@@ -3,6 +3,8 @@
   padding: 24px 36px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .container > ion-segment {
@@ -40,6 +42,11 @@
 
 .file {
   border-radius: 12px 0px 0px 12px !important;
+  border: unset !important;
+}
+
+.file-no-admin {
+  border-radius: 12px !important;
   border: unset !important;
 }
 

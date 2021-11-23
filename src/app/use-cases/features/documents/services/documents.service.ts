@@ -152,6 +152,8 @@ export class DocumentsService {
             cachedDocs[index] = data;
 
             await this._storageService.setToken(Storage.DOCUMENTS, cachedDocs);
+
+            console.log(cachedDocs);
             stateService.updateDocumentsState(cachedDocs);
 
             return data;

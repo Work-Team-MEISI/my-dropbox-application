@@ -120,8 +120,6 @@ export class StateService {
       return document;
     });
 
-    console.log(documents);
-
     this.updateDocumentsState(documents);
   }
 }

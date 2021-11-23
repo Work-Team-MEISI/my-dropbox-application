@@ -33,7 +33,19 @@ export class DocumentsPage implements OnInit {
       map((data) => {
         this._userId = data.user.userId;
 
-        return data.documents;
+        const docs = data.documents.filter((doc) => {
+          const belongsToUser = doc.users.findIndex(
+            (sharedDoc) => sharedDoc === this._userId
+          );
+
+          if (belongsToUser === -1) {
+            return;
+          }
+
+          return doc;
+        });
+
+        return docs;
       })
     );
   }

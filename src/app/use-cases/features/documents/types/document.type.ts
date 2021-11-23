@@ -7,5 +7,5 @@ export type Document = {
   extension: string;
   creator: string;
   users: Array<string>;
-  blob?: unknown;
+  blob?: Blob;
 };

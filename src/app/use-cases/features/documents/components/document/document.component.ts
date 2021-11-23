@@ -14,10 +14,7 @@ export class DocumentComponent implements OnInit {
   @Input() document: Document;
   @Input() userId: string;
 
-  constructor(
-    private readonly _documentsService: DocumentsService,
-    private readonly _router: Router
-  ) {}
+  constructor(private readonly _router: Router) {}
 
   ngOnInit() {}
 

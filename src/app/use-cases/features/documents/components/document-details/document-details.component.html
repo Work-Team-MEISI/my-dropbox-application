@@ -1,6 +1,6 @@
 
 <div class="container" *ngIf="this.state$ | async as state">
-    <ion-segment>
+    <ion-segment *ngIf="state.document.creator === this.userId">
         <ion-segment-button 
         (click)="this.selectedTab = 'file'" 
         class="file" 
@@ -14,12 +14,21 @@
             <ion-label [ngClass]="this.selectedTab === 'share' ? 'active' : 'not-active'">Share</ion-label>
         </ion-segment-button>
     </ion-segment>
+    <ion-segment *ngIf="state.document.creator !== this.userId">
+        <ion-segment-button 
+        (click)="this.selectedTab = 'file'" 
+        class="file-no-admin" 
+        value="file">
+            <ion-label [ngClass]="this.selectedTab === 'file' ? 'active' : 'not-active'">File</ion-label>
+        </ion-segment-button>
+    </ion-segment>
     <div class="file-container" *ngIf="this.selectedTab === 'file'">
         <ion-row class="file-container-header">
             <ion-label class="doc-name">{{ state.document.name }}</ion-label>
             <ion-row class="doc-icons">
                 <ion-icon name="cloud-upload-outline" class="download-file" (click)="this.downloadFile(state.document.documentId)"></ion-icon>
-                <ion-icon name="trash-outline" class="trash-file" (click)="this.deleteFile(state.document.documentId)"></ion-icon>
+                <ion-icon name="trash-outline" class="trash-file" *ngIf="state.document.creator === this.userId" (click)="this.deleteFile(state.document.documentId)"></ion-icon>
+                <ion-icon name="trash-outline" class="trash-file" *ngIf="state.document.creator !== this.userId" (click)="this.removeUserFromFile(state.document.users, state.document.documentId)"></ion-icon>
             </ion-row>
         </ion-row>
         <hr>

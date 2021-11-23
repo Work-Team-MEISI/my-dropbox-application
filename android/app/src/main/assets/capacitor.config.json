@@ -1,0 +1,6 @@
+{
+	"appId": "com.ionic-angular.dripbox",
+	"appName": "my-dropbox-application",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

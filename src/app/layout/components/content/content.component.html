@@ -1,6 +1,6 @@
-<ion-content overflow-scroll="true">
+<ion-content overflow-scroll="true" >
     <ion-router-outlet></ion-router-outlet>
-    <div class="error-failure">
+    <div class="error-failure" *ngIf="(this.state$ | async) === false">
         <ion-text> No network connection! </ion-text>
     </div>
 </ion-content>
