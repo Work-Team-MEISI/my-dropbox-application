@@ -13,6 +13,7 @@
         value="share">
             <ion-label [ngClass]="this.selectedTab === 'share' ? 'active' : 'not-active'">Share</ion-label>
         </ion-segment-button>
+        <img alt="">
     </ion-segment>
     <ion-segment *ngIf="state.document.creator !== this.userId">
         <ion-segment-button 

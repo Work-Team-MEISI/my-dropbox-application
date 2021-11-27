@@ -40,7 +40,6 @@ export class HttpInterceptorService implements HttpInterceptor {
       clone = request.clone({
         setHeaders: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });

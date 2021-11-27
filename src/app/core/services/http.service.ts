@@ -75,7 +75,12 @@ export class HttpService {
   /** Create */
 
   public create<T, K>(routeURL: string, data: K): Observable<T> {
-    return this._httpClient.post<T>(`${environment.apiURL}/${routeURL}`, data);
+    const headers = new HttpHeaders();
+    headers.append('Content-type', 'multipart/form-data;boundary=');
+    headers.append('enctype', 'multipart/form-data');
+    return this._httpClient.post<T>(`${environment.apiURL}/${routeURL}`, data, {
+      headers: headers,
+    });
   }
 
   /** Update */

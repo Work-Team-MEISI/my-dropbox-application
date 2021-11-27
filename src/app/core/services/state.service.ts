@@ -66,8 +66,6 @@ export class StateService {
         await this._storageService.setToken(Storage.DOCUMENTS, data);
         this.updateDocumentsState(data);
 
-        console.log(data);
-
         observer.next(data);
         return observer.complete();
       });

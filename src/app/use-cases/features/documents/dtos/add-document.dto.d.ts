@@ -1,6 +1,6 @@
 export class AddDocumentDTO {
   name: string;
-  blob: Blob;
+  blob: any;
   extension: string;
   creator: string;
   users: Array<string>;

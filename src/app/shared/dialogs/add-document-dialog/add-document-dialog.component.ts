@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AddDocumentDTO } from 'src/app/use-cases/features/documents/dtos/add-document.dto';
-import { DocumentsService } from 'src/app/use-cases/features/documents/services/documents.service';
 
 @Component({
   selector: 'app-add-document-dialog',
@@ -11,42 +9,20 @@ import { DocumentsService } from 'src/app/use-cases/features/documents/services/
 export class AddDocumentDialogComponent implements OnInit {
   @Input() userId: string;
 
-  private _addDocumentDTO: AddDocumentDTO | undefined;
-  private _docName: string = '';
+  private _addDocumentDTO: FormData | undefined;
 
   constructor(private readonly _modalController: ModalController) {}
 
   ngOnInit() {}
 
-  public get docName(): string {
-    return this._docName;
-  }
-
-  public set docName(docName: string) {
-    this._docName = docName;
-  }
-
-  public get addDocumentDTO(): AddDocumentDTO | undefined {
+  public get addDocumentDTO(): FormData | undefined {
     return this._addDocumentDTO;
   }
 
   public changeDocument(event: Event): void {
-    const { name, type } = event.target['files'][0];
+    this._addDocumentDTO = new FormData();
+    this._addDocumentDTO.append('file', event.target['files'][0]);
 
-    const entension = type.split('/');
-
-    this._addDocumentDTO = {
-      name: name,
-      extension: entension[1],
-      blob: event.target['files'][0],
-      creator: String(this.userId),
-      users: [this.userId],
-    };
-  }
-
-  public addDocument(): void {
-    this._addDocumentDTO.name = this._docName;
-
-    this._modalController.dismiss(this.addDocumentDTO);
+    this._modalController.dismiss(this._addDocumentDTO);
   }
 }

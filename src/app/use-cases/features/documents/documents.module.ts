@@ -9,6 +9,7 @@ import { AddDocumentComponent } from './components/add-document/add-document.com
 import { DocumentsService } from './services/documents.service';
 import { DocumentDetailsComponent } from './components/document-details/document-details.component';
 import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, DocumentsPageRoutingModule],
@@ -18,6 +19,6 @@ import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
     AddDocumentComponent,
     DocumentDetailsComponent,
   ],
-  providers: [DocumentsService, PreviewAnyFile],
+  providers: [DocumentsService, PreviewAnyFile, InAppBrowser],
 })
 export class DocumentsPageModule {}

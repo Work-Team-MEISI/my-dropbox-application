@@ -78,15 +78,20 @@ export class DocumentsService {
     });
   }
 
-  public createDocument(addDocumentDTO: AddDocumentDTO): Observable<Document> {
+  public createDocument(data: FormData): Observable<Document> {
     return new Observable((observer: Observer<Document>) => {
       const routeURL = `${DocumentsRoutes.DOCUMENTS}`;
 
       this._httpSpinnerService.showSpinner();
       const stateService = this._injector.get(StateService);
 
+      data.forEach((value, key) => {
+        console.log(key);
+        console.log(value);
+      });
+
       return this._httpService
-        .create(routeURL, addDocumentDTO)
+        .create(routeURL, data)
         .pipe(
           map(async (data: Document) => {
             const cachedDocs = await this._storageService.fetchToken<
@@ -152,8 +157,6 @@ export class DocumentsService {
             cachedDocs[index] = data;
 
             await this._storageService.setToken(Storage.DOCUMENTS, cachedDocs);
-
-            console.log(cachedDocs);
             stateService.updateDocumentsState(cachedDocs);
 
             return data;

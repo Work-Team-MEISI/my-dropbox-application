@@ -10,6 +10,9 @@ import { DocumentsRoutes } from '../../constants/documents-routes.enum';
 import { DocumentsService } from '../../services/documents.service';
 import { Document } from '../../types/document.type';
 import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
+import { Browser } from '@capacitor/browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-document-details',
@@ -33,7 +36,8 @@ export class DocumentDetailsComponent implements OnInit {
     private readonly _documentsService: DocumentsService,
     private readonly _httpSpinnerService: HttpSpinnerService,
     private readonly _stateService: StateService,
-    private readonly _previewAnyFile: PreviewAnyFile
+    private readonly _previewAnyFile: PreviewAnyFile,
+    private iab: InAppBrowser
   ) {}
 
   public get selectedTab(): string {
@@ -83,8 +87,6 @@ export class DocumentDetailsComponent implements OnInit {
           this._httpSpinnerService.hideSpinner();
           this.sharedUsers = combinedResults[1];
 
-          console.log(document);
-
           observer.next({
             document: document,
             user: combinedResults[0].username,
@@ -125,9 +127,6 @@ export class DocumentDetailsComponent implements OnInit {
   public removeUserFromFile(users: Array<string>, documentId: string) {
     const filteredUsers = users.filter((user) => user !== this.userId);
 
-    console.log(filteredUsers);
-    console.log(this.userId);
-
     this._documentsService
       .updateDocument({ documentId: documentId, users: filteredUsers })
       .subscribe((data) => {
@@ -143,22 +142,7 @@ export class DocumentDetailsComponent implements OnInit {
   }
 
   public downloadFile(documentId: string) {
-    console.log(documentId);
-    this._documentsService
-      .fetchDocument(documentId)
-      .pipe(
-        map((data: Document) => {
-          const file = new File([data.blob!], 'name', {
-            lastModified: 1534584790000,
-            type: 'application/pdf',
-          });
-
-          const url = URL.createObjectURL(file);
-
-          this._previewAnyFile.preview(url);
-        })
-      )
-      .subscribe();
+    window.open(`${environment.apiURL}/documents/${documentId}`);
   }
 
   public addUserToFile(event, users: Array<string>, documentId: string) {
@@ -168,7 +152,6 @@ export class DocumentDetailsComponent implements OnInit {
       this._profileService
         .fetchUserByEmail({ email: event.target.value })
         .subscribe((user: User | null) => {
-          console.log(user);
           if (user) {
             users.push(user.userId);
 
