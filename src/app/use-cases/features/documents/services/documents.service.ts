@@ -85,11 +85,6 @@ export class DocumentsService {
       this._httpSpinnerService.showSpinner();
       const stateService = this._injector.get(StateService);
 
-      data.forEach((value, key) => {
-        console.log(key);
-        console.log(value);
-      });
-
       return this._httpService
         .create(routeURL, data)
         .pipe(

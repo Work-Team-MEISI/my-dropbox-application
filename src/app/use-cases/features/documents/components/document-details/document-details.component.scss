@@ -90,6 +90,13 @@
   color: #000000;
 }
 
+.doc-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 180px;
+}
+
 .doc-icons {
   display: flex;
   flex-direction: row;
