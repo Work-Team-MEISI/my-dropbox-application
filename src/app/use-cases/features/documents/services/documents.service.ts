@@ -93,10 +93,15 @@ export class DocumentsService {
               Array<Document>
             >(Storage.DOCUMENTS);
 
-            cachedDocs.unshift(data);
+            if (cachedDocs) {
+              cachedDocs.unshift(data);
 
-            await this._storageService.setToken(Storage.DOCUMENTS, cachedDocs);
-            stateService.updateDocumentsState(cachedDocs);
+              await this._storageService.setToken(
+                Storage.DOCUMENTS,
+                cachedDocs
+              );
+              stateService.updateDocumentsState(cachedDocs);
+            }
 
             return data;
           }),
@@ -145,14 +150,19 @@ export class DocumentsService {
               Array<Document>
             >(Storage.DOCUMENTS);
 
-            const index = cachedDocs.findIndex(
-              (cachedDoc) => cachedDoc.documentId === data.documentId
-            );
+            if (cachedDocs) {
+              const index = cachedDocs.findIndex(
+                (cachedDoc) => cachedDoc.documentId === data.documentId
+              );
 
-            cachedDocs[index] = data;
+              cachedDocs[index] = data;
 
-            await this._storageService.setToken(Storage.DOCUMENTS, cachedDocs);
-            stateService.updateDocumentsState(cachedDocs);
+              await this._storageService.setToken(
+                Storage.DOCUMENTS,
+                cachedDocs
+              );
+              stateService.updateDocumentsState(cachedDocs);
+            }
 
             return data;
           }),

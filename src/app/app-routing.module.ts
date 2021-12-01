@@ -5,6 +5,15 @@ import { AuthenticationGuardService } from './use-cases/features/users/features/
 
 const routes: Routes = [
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('./use-cases/features/users/features/profile/profile.module').then(
+        (m) => m.ProfileModule
+      ),
+    canActivate: [AuthenticationGuardService],
+    resolve: { data: StateResolverService },
+  },
+  {
     path: 'documents',
     loadChildren: () =>
       import('./use-cases/features/documents/documents.module').then(
@@ -29,13 +38,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'authentication/sign-in',
     pathMatch: 'full',
-  },
-  {
-    path: 'documents',
-    loadChildren: () =>
-      import('./use-cases/features/documents/documents.module').then(
-        (m) => m.DocumentsPageModule
-      ),
   },
 ];
 

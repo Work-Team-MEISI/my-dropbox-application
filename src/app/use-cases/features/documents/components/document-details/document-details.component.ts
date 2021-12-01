@@ -57,44 +57,46 @@ export class DocumentDetailsComponent implements OnInit {
           sharedUsers: Array<User>;
         }>
       ) => {
-        const { document, userId } =
-          this._router.getCurrentNavigation().extras.state;
-        this.userId = userId;
+        if (this._router.getCurrentNavigation().extras.state) {
+          const { document, userId } =
+            this._router.getCurrentNavigation().extras.state;
+          this.userId = userId;
 
-        this._httpSpinnerService.showSpinner();
+          this._httpSpinnerService.showSpinner();
 
-        const user = this._profileService.fetchUserById({ userId: userId });
-        const sharedUsers$ = new Observable(
-          (observer: Observer<Array<User>>) => {
-            const users = [];
+          const user = this._profileService.fetchUserById({ userId: userId });
+          const sharedUsers$ = new Observable(
+            (observer: Observer<Array<User>>) => {
+              const users = [];
 
-            for (const sharedUserId of document.users) {
-              if (sharedUserId !== document.creator) {
-                this._profileService
-                  .fetchUserById({ userId: sharedUserId })
-                  .subscribe((data) => {
-                    users.push(data);
-                  });
+              for (const sharedUserId of document.users) {
+                if (sharedUserId !== document.creator) {
+                  this._profileService
+                    .fetchUserById({ userId: sharedUserId })
+                    .subscribe((data) => {
+                      users.push(data);
+                    });
+                }
               }
+
+              observer.next(users);
+              return observer.complete();
             }
+          );
 
-            observer.next(users);
+          forkJoin([user, sharedUsers$]).subscribe((combinedResults) => {
+            this._httpSpinnerService.hideSpinner();
+            this.sharedUsers = combinedResults[1];
+
+            observer.next({
+              document: document,
+              user: combinedResults[0].username,
+              sharedUsers: combinedResults[1],
+            });
+
             return observer.complete();
-          }
-        );
-
-        forkJoin([user, sharedUsers$]).subscribe((combinedResults) => {
-          this._httpSpinnerService.hideSpinner();
-          this.sharedUsers = combinedResults[1];
-
-          observer.next({
-            document: document,
-            user: combinedResults[0].username,
-            sharedUsers: combinedResults[1],
           });
-
-          return observer.complete();
-        });
+        }
       }
     );
   }
