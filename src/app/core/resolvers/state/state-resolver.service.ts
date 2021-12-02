@@ -3,6 +3,7 @@ import { Resolve } from '@angular/router';
 import { forkJoin, from, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Document } from 'src/app/use-cases/features/documents/types/document.type';
+import { User } from 'src/app/use-cases/features/users/types/user';
 import { Storage } from '../../constants/storage.enum';
 import { NetworkService } from '../../services/network.service';
 import { StateService } from '../../services/state.service';
@@ -32,6 +33,11 @@ export class StateResolverService implements Resolve<State> {
                 Array<Document>
               >(DOCUMENTS);
 
+              const user = await this._storageService.fetchToken<User>(
+                Storage.USER
+              );
+
+              this._stateService.updateUserState(user);
               this._stateService.updateDocumentsState(docsToken ?? []);
             }
 

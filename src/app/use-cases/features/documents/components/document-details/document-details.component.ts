@@ -64,7 +64,9 @@ export class DocumentDetailsComponent implements OnInit {
 
           this._httpSpinnerService.showSpinner();
 
-          const user = this._profileService.fetchUserById({ userId: userId });
+          const user = this._profileService.fetchUserById({
+            userId: document.creator,
+          });
           const sharedUsers$ = new Observable(
             (observer: Observer<Array<User>>) => {
               const users = [];

@@ -34,16 +34,17 @@ export class DocumentsPage implements OnInit {
         this._userId = data.user.userId;
 
         const docs = data.documents.filter((doc) => {
-          const belongsToUser = doc.users.findIndex(
-            (sharedDoc) => sharedDoc === this._userId
-          );
-
+          const belongsToUser = doc.users.findIndex((sharedDoc) => {
+            return sharedDoc === this._userId;
+          });
           if (belongsToUser === -1) {
             return;
           }
 
           return doc;
         });
+
+        console.log(docs);
 
         return docs;
       })

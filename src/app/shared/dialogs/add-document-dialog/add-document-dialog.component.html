@@ -1,5 +1,5 @@
 <div class="container">
-  <input type="file" id="file" class="file" accept="application/pdf" *ngIf="this.addDocumentDTO === undefined" (change)="this.changeDocument($event)">
+  <input type="file" id="file" class="file" accept="application/pdf, application/msword, image/jpeg, image/png, image/svg+xml, application/vnd.ms-excel, application/vnd.ms-powerpoint" *ngIf="this.addDocumentDTO === undefined" (change)="this.changeDocument($event)">
   <label for="file">
     <ion-icon *ngIf="this.addDocumentDTO === undefined" name="cloud-upload-outline"></ion-icon>
     <ion-icon *ngIf="this.addDocumentDTO !== undefined" name="document-outline"></ion-icon>
