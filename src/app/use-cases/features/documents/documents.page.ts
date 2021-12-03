@@ -19,7 +19,7 @@ export class DocumentsPage implements OnInit {
 
   constructor(
     private readonly _stateService: StateService,
-    private readonly _networkService: NetworkService,
+    public readonly _networkService: NetworkService,
     private readonly _httpSpinnerService: HttpSpinnerService,
     private readonly _modalController: ModalController
   ) {

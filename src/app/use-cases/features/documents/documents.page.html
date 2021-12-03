@@ -7,5 +7,5 @@
         <ion-label>Whoa! Such Empty!</ion-label>
     </div>
     <app-document *ngFor="let document of documents" [document]="document" [userId]="this.userId"></app-document>
-    <app-add-document [userId]="this.userId"></app-add-document>
+    <app-add-document *ngIf="this._networkService.state$ | async" [userId]="this.userId"></app-add-document>
 </div>
